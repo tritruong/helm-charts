@@ -1,0 +1,42 @@
+{{- if and .Values.bigbang.istio.enabled (hasKey .Values.package "istio") (hasKey .Values.package.istio "hardened") (eq (dig "injection" "enabled" .Values.package.istio) "enabled") (dig  "enabled" false .Values.package.istio.hardened) (hasKey .Values.package.istio.hardened "matchLabels") -}}
+{{- $releaseNamespace := .Release.Namespace -}}
+{{- $matchLabels := .Values.package.istio.hardened.matchLabels -}}
+{{- range .Values.package.istio.hosts -}}
+{{- $host := . -}}
+{{- if hasKey . "gateways" -}}
+{{- range .gateways -}}
+{{- $namespace := "istio-system" -}}
+{{- $name := . -}}
+{{- if contains "/" $name -}}
+{{- $gatewayParts := split "/" $name }}
+{{- $namespace = $gatewayParts._0 -}}
+{{- $name := $gatewayParts._1 -}}
+{{- end -}}
+{{- $extraName := "" -}}
+{{- range $currentName := $host.names -}}
+{{- if $currentName -}}
+{{- $extraName = printf "%s-%s" $extraName $currentName -}}
+{{- end -}}
+{{- end -}}
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: {{ printf "%s-ingressgateway%s-authz-policy" $name $extraName }}
+  namespace: {{ $releaseNamespace }}
+spec:
+  selector:
+    matchLabels:
+      {{ $matchLabels | toYaml | nindent 6 }}
+  action: ALLOW
+  rules:
+  - from:
+    - source:
+        namespaces:
+        - {{ $namespace }}
+        principals:
+        - "cluster.local/ns/{{ $namespace }}/sa/{{ $name }}-ingressgateway-service-account"
+---
+{{ end -}}
+{{- end }}
+{{- end }}
+{{- end }}
