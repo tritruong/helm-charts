@@ -3,13 +3,13 @@ bigbang:
   domain: bigbang.dev
   openshift: false
   networkPolicies:
-    enabled: false
+    enabled: true
     controlPlaneCidr: 0.0.0.0/0
     controlPlaneNode:
   istio:
-    enabled: false
+    enabled: true
   monitoring:
-    enabled: false
+    enabled: true
   addons:
     authservice:
       enabled: false
