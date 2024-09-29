@@ -2,6 +2,17 @@ apiVersion: v1
 entries:
   wrapper:
   - apiVersion: v2
+    created: "2024-09-29T15:07:55.480047985Z"
+    description: Adds full Big Bang integration into a package
+    digest: ce6f5b783978dcfc939bf7795c880d9774170408c8fa897ff34e464546680447
+    name: wrapper
+    sources:
+    - https://repo1.dso.mil/big-bang/product/packages/wrapper
+    type: application
+    urls:
+    - https://github.com/tritruong/helm-charts/releases/download/wrapper-0.4.7/wrapper-0.4.7.tgz
+    version: 0.4.7
+  - apiVersion: v2
     created: "2024-09-29T07:31:40.406501567Z"
     description: Adds full Big Bang integration into a package
     digest: db348d8922cfc158331b9a7e8b22b1d3bc7138bfefb2d0c85ee4d860dce4db3a
@@ -12,4 +23,4 @@ entries:
     urls:
     - https://github.com/tritruong/helm-charts/releases/download/wrapper-0.4.6/wrapper-0.4.6.tgz
     version: 0.4.6
-generated: "2024-09-29T07:31:40.406513189Z"
+generated: "2024-09-29T15:07:55.480071489Z"
