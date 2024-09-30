@@ -10,7 +10,7 @@
 {{- if contains "/" $name -}}
 {{- $gatewayParts := split "/" $name }}
 {{- $namespace = $gatewayParts._0 -}}
-{{- $name := $gatewayParts._1 -}}
+{{- $name = $gatewayParts._1 -}}
 {{- end -}}
 {{- $extraName := "" -}}
 {{- range $currentName := $host.names -}}
@@ -18,10 +18,10 @@
 {{- $extraName = printf "%s-%s" $extraName $currentName -}}
 {{- end -}}
 {{- end -}}
-apiVersion: security.istio.io/v1
+apiVersion: security.istio.io/v1beta1
 kind: AuthorizationPolicy
 metadata:
-  name: {{ printf "ingressgateway%s-authz-policy" $extraName }}
+  name: {{ printf "%s-ingressgateway%s-authz-policy" $name $extraName }}
   namespace: {{ $releaseNamespace }}
 spec:
   selector:
