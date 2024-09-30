@@ -6,7 +6,7 @@ apiVersion: security.istio.io/v1
 kind: AuthorizationPolicy
 metadata:
   name: {{ .name }}
-  namespace: {{ $.Release.Namespace }}
+  namespace: {{ .namespace }}
 
 spec:
   {{ toYaml .spec | nindent 2 }}
