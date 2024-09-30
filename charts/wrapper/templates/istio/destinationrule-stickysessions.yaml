@@ -17,7 +17,7 @@
 {{- end -}}
 
 {{- range $i, $svc := $svcs -}}
-apiVersion: networking.istio.io/v1beta1
+apiVersion: networking.istio.io/v1
 kind: DestinationRule
 metadata:
   name: {{ include "resourceName" (printf "%s-stickysession%s" $.Values.package.name (ternary "" (print "-%" $i) (eq 1 (len $svcs)))) }}

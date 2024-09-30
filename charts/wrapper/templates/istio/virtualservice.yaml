@@ -1,7 +1,7 @@
 {{- /* Sets up virtual service for istio ingress */ -}}
 {{- if and (dig "istio" "hosts" false .Values.package) .Values.bigbang.istio.enabled -}}
 {{- range $host := .Values.package.istio.hosts -}}
-apiVersion: networking.istio.io/v1beta1
+apiVersion: networking.istio.io/v1
 kind: VirtualService
 metadata:
   name: {{ include "resourceName" (printf "%s-%s" (index $host.names 0) (default $.Values.bigbang.domain $host.domain)) }}
