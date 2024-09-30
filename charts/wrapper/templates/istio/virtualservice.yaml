@@ -34,7 +34,7 @@ spec:
 
   {{- toYaml $host.route | nindent 2 }}
   exportTo:
-  - istio-system
+  - istio-ingress
 ---
 {{ end -}}
 {{- end -}}
