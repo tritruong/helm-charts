@@ -107,7 +107,7 @@ package:
 
   network:
     # -- Toggle all policies on or off
-    policies: true
+    policies: false
     # -- Deny all traffic in the namespace by default
     defaultDeny: true
     # -- Allow traffic between pods inside the namespace
