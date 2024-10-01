@@ -21,7 +21,8 @@ metadata:
     bigbang.dso.mil/description: Allows ingress traffic from any Istio ingress gateway to exposed ports
 spec:
   podSelector:
-    {{- toYaml $selector | nindent 4 }}
+    matchLabels:
+      {{- toYaml $selector | nindent 6 }}
   policyTypes:
   - Ingress
   ingress:
