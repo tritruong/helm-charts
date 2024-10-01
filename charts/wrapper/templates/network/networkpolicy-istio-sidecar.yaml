@@ -8,7 +8,7 @@ metadata:
   annotations:
     bigbang.dso.mil/description: |-
       Allows ingress traffic from Prometheus to the Istio sidecar metrics.
-      Allows egress traffic from the Istio sidecar to the Istio daemon and Tempo (if enabled).
+      Allows egress traffic from the Istio sidecar to the Istio daemon and Jaeger (if enabled).
 spec:
   podSelector: {}
   policyTypes:
@@ -32,20 +32,20 @@ spec:
     to:
     - namespaceSelector:
         matchLabels:
-          app.kubernetes.io/name: istio-controlplane
+          app.kubernetes.io/name: istio-system
       podSelector:
         matchLabels:
           istio: pilot
-  {{ if dig "tempo" "enabled" true .Values.bigbang -}}
-  {{- /* Each sidecar sends zipkin trace info directly to tempo */ -}}
-  - ports:
-    - port: 9411
-    to:
-    - namespaceSelector:
-        matchLabels:
-          app.kubernetes.io/name: tempo
-      podSelector:
-        matchLabels:
-          app.kubernetes.io/name: tempo
-  {{- end -}}
+  # {{ if dig "jaeger" "enabled" true .Values.bigbang -}}
+  # {{- /* Each sidecar sends zipkin trace info directly to jaeger */ -}}
+  # - ports:
+  #   - port: 9411
+  #   to:
+  #   - namespaceSelector:
+  #       matchLabels:
+  #         app.kubernetes.io/name: jaeger
+  #     podSelector:
+  #       matchLabels:
+  #         app.kubernetes.io/name: jaeger
+  # {{- end -}}
 {{- end -}}

@@ -28,7 +28,7 @@ spec:
   - from:
     - namespaceSelector:
         matchLabels:
-          app.kubernetes.io/name: istio-controlplane
+          app.kubernetes.io/name: istio-ingress
       podSelector:
         matchLabels:
           istio: ingressgateway
