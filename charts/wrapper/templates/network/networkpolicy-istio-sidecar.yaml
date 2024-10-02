@@ -24,7 +24,8 @@ spec:
         matchLabels:
           app: prometheus
     ports:
-    - port: 15020
+    - port: 15020  # Merged Prometheus telemetry from Istio agent, Envoy, and application 
+    - port: 15090  # Envoy Prometheus telemetry
   {{- end }}
   egress:
   - ports:
