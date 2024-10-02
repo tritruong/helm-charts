@@ -20,8 +20,8 @@ spec:
         except:
         - 169.254.169.254/32
         {{- end }}
-    {{ if dig "networkPolicies" "controlPlaneNode" false .Values.bigbang }}
+    {{ if dig "networkPolicies" "controlPlanePort" false .Values.bigbang }}
     ports:
-    - port: {{ .Values.bigbang.networkPolicies.controlPlaneNode }}
+    - port: {{ .Values.bigbang.networkPolicies.controlPlanePort }}
     {{- end -}}
 {{- end -}}
