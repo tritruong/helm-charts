@@ -5,7 +5,7 @@ bigbang:
   networkPolicies:
     enabled: true
     controlPlaneCidr: 0.0.0.0/0
-    controlPlaneNode:
+    controlPlanePort:
   istio:
     enabled: true
   monitoring:
