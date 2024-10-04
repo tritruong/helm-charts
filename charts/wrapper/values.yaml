@@ -10,6 +10,8 @@ bigbang:
     enabled: true
   monitoring:
     enabled: true
+  jaeger:
+    enabled: true
   addons:
     authservice:
       enabled: false

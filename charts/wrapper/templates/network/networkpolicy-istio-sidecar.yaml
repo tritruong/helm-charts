@@ -37,16 +37,16 @@ spec:
       podSelector:
         matchLabels:
           istio: pilot
-  # {{ if dig "jaeger" "enabled" true .Values.bigbang -}}
-  # {{- /* Each sidecar sends zipkin trace info directly to jaeger */ -}}
-  # - ports:
-  #   - port: 9411
-  #   to:
-  #   - namespaceSelector:
-  #       matchLabels:
-  #         app.kubernetes.io/name: jaeger
-  #     podSelector:
-  #       matchLabels:
-  #         app.kubernetes.io/name: jaeger
-  # {{- end -}}
+  {{ if dig "jaeger" "enabled" true .Values.bigbang -}}
+  {{- /* Each sidecar sends zipkin trace info directly to jaeger */ -}}
+  - ports:
+    - port: 9411
+    to:
+    - namespaceSelector:
+        matchLabels:
+          app.kubernetes.io/name: jaeger
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: jaeger
+  {{- end -}}
 {{- end -}}
