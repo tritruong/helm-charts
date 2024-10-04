@@ -60,7 +60,7 @@ spec:
           {{- end }}
           {{- if .Values.collector.service.zipkin }}
           - name: COLLECTOR_ZIPKIN_HOST_PORT
-            value: {{ .Values.collector.service.zipkin.port | quote }}
+            value: ":{{ .Values.collector.service.zipkin.port }}"
           {{- end }}
           {{- if or .Values.collector.service.otlp.grpc .Values.collector.service.otlp.http }}
           - name: COLLECTOR_OTLP_ENABLED
