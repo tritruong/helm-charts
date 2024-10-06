@@ -50,6 +50,22 @@ entries:
     urls:
     - https://github.com/tritruong/helm-charts/releases/download/jaeger-3.3.2/jaeger-3.3.2.tgz
     version: 3.3.2
+  kiali:
+  - apiVersion: v2
+    created: "2024-10-06T03:19:48.885674129Z"
+    dependencies:
+    - name: kiali-operator
+      repository: https://kiali.org/helm-charts
+      version: 1.89.7
+    description: A Helm chart for kiali
+    digest: 1f23fb9a7ae1601e56d4284931c6a3d707c51c7e98cc195ede97896171adf4f4
+    maintainers:
+    - email: tritruong.tr@gmail.com
+      name: tritruong
+    name: kiali
+    urls:
+    - https://github.com/tritruong/helm-charts/releases/download/kiali-1.89.7/kiali-1.89.7.tgz
+    version: 1.89.7
   wrapper:
   - apiVersion: v2
     created: "2024-10-04T10:29:18.581897917Z"
@@ -205,4 +221,4 @@ entries:
     urls:
     - https://github.com/tritruong/helm-charts/releases/download/wrapper-0.4.6/wrapper-0.4.6.tgz
     version: 0.4.6
-generated: "2024-10-04T14:12:28.955837629Z"
+generated: "2024-10-06T03:19:48.885708764Z"
