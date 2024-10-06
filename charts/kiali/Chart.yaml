@@ -10,4 +10,4 @@ maintainers:
 dependencies:
 - name: kiali-operator
   version: 1.89.7
-  repository: https://ealenn.github.io/charts
+  repository: https://kiali.org/helm-charts
