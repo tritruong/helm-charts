@@ -1,0 +1,13 @@
+apiVersion: v2
+name: kiali
+description: A Helm chart for kiali
+version: 1.89.7
+
+maintainers:
+- email: tritruong.tr@gmail.com
+  name: tritruong
+
+dependencies:
+- name: kiali-operator
+  version: 1.89.7
+  repository: https://ealenn.github.io/charts

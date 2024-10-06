@@ -1,0 +1,21 @@
+{{ if .Values.cr.create }}
+---
+apiVersion: kiali.io/v1alpha1
+kind: Kiali
+metadata:
+  {{- if .Values.cr.namespace }}
+  namespace: {{ .Values.cr.namespace }}
+  {{- end }}
+  name: {{ .Values.cr.name }}
+  labels:
+    {{- if .Values.cr.labels }}
+    {{- toYaml .Values.cr.labels | nindent 4 }}
+    {{- end }}
+  annotations:
+    {{- if .Values.cr.annotations }}
+    {{- toYaml .Values.cr.annotations | nindent 4 }}
+    {{- end }}
+spec:
+  {{- toYaml .Values.cr.spec | nindent 2 }}
+...
+{{ end }}

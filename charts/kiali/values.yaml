@@ -1,0 +1,94 @@
+kiali-operator:
+  debug:
+    enabled: true
+    verbosity: "1"
+    enableProfiler: false
+
+  # Defines where the operator will look for Kial CR resources. "" means "all namespaces".
+  watchNamespace: ""
+
+# For what a Kiali CR spec can look like, see:
+# https://kiali.io/docs/configuration/kialis.kiali.io/
+cr:
+  create: true
+  name: kiali
+  ## the namespace where the CR will be created
+  namespace: ""
+
+  # Labels to place in the Kiali CR metadata.
+  labels: {}
+
+  # Annotations to place in the Kiali CR metadata.
+  annotations: {}
+
+  spec:
+    istio_namespace: istio-system
+
+    istio_labels:
+      app_label_name: "app.kubernetes.io/name"
+      version_label_name: "app.kubernetes.io/version"
+
+    # custom_dashboards: []
+    deployment:
+      image_version: ""
+      ingress:
+        enabled: false
+      accessible_namespaces:
+        - "**"  ## Kiali be given access to all namespaces that currently exist, or that will be created in the future
+      logger:
+        log_level: info
+      resources:
+        limits:
+          memory: 368Mi
+        requests:
+          cpu: 10m
+          memory: 128Mi
+      security_context:
+        capabilities:
+          drop:
+            - ALL
+        allowPrivilegeEscalation: false
+        privileged: false
+        runAsNonRoot: true
+        readOnlyRootFilesystem: true
+        runAsGroup: 1001
+        runAsUser: 1001
+
+    auth:
+      strategy: "anonymous"
+    external_services:
+      # https://kiali.io/documentation/latest/runtimes-monitoring/
+      custom_dashboards:
+        enabled: true
+
+      prometheus:
+        url: http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local:9090
+
+      grafana:
+        enabled: true
+        in_cluster_url: "http://kube-prometheus-stack-grafana.monitoring.svc.cluster.local:3000"
+        url: "https://grafana.example.com"
+        auth:
+          username: "admin"
+          password: "prom-operator"
+          type: basic
+        dashboards:
+          - name: "Istio Service Dashboard"
+            variables:
+              namespace: "var-namespace"
+              service: "var-service"
+          - name: "Istio Workload Dashboard"
+            variables:
+              namespace: "var-namespace"
+              workload: "var-workload"
+          - name: "Istio Mesh Dashboard"
+          - name: "Istio Control Plane Dashboard"
+          - name: "Istio Performance Dashboard"
+          - name: "Istio Wasm Extension Dashboard"
+
+      tracing:
+        enabled: true
+        in_cluster_url: "http://jaeger-query.jaeger.svc.cluster.local:16686"
+        url: "https://tracing.example.com"
+        use_grpc: false
+        whitelist_istio_system: ["istiod"]  # get the traces of these services found in the Istio control plane namespace
