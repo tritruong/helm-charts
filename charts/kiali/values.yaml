@@ -61,6 +61,10 @@ cr:
       custom_dashboards:
         enabled: true
 
+      istio:
+        ingress_gateway_namespace: "istio-ingress"
+        egress_gateway_namespace: "istio-ingress"
+
       prometheus:
         url: http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local:9090
 
