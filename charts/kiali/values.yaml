@@ -70,7 +70,7 @@ cr:
 
       grafana:
         enabled: true
-        in_cluster_url: "http://kube-prometheus-stack-grafana.monitoring.svc.cluster.local:3000"
+        in_cluster_url: "http://grafana.monitoring.svc.cluster.local:3000"
         url: "https://grafana.example.com"
         auth:
           username: "admin"
