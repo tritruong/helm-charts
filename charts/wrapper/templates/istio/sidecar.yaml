@@ -1,0 +1,18 @@
+{{- /* Sets up Sidecar resource to reduce proxy configuration size */ -}}
+{{- if and (dig "istio" "allowServices" false .Values.package) .Values.bigbang.istio.enabled -}}
+apiVersion: networking.istio.io/v1
+kind: Sidecar
+metadata:
+  name: {{ include "resourceName" (printf "%s-sidecar" .Values.package.name) }}
+  labels:
+    {{- include "commonLabels" $ | nindent 4 }}
+spec:
+  egress:
+    - hosts:
+      - "./*"
+      - "istio-system/*"
+      {{- range .Values.package.istio.allowServices }}
+      - {{ . | printf "%s/*" | quote }}
+      {{- end }}
+---
+{{- end -}}
