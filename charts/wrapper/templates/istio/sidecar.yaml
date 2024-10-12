@@ -1,5 +1,5 @@
 {{- /* Sets up Sidecar resource to reduce proxy configuration size */ -}}
-{{- if and (dig Values.package.istio.reduceConfigSize.enabled) .Values.bigbang.istio.enabled -}}
+{{- if and .Values.package.istio.reduceConfigSize.enabled .Values.bigbang.istio.enabled -}}
 apiVersion: networking.istio.io/v1
 kind: Sidecar
 metadata:
