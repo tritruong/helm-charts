@@ -1,5 +1,5 @@
 {{- /* Sets up Sidecar resource to reduce proxy configuration size */ -}}
-{{- if and (dig "istio" "allowServices" false .Values.package) .Values.bigbang.istio.enabled -}}
+{{- if and (dig Values.package.istio.reduceConfigSize.enabled) .Values.bigbang.istio.enabled -}}
 apiVersion: networking.istio.io/v1
 kind: Sidecar
 metadata:
@@ -11,7 +11,7 @@ spec:
     - hosts:
       - "./*"
       - "istio-system/*"
-      {{- range .Values.package.istio.allowServices }}
+      {{- range .Values.package.istio.reduceConfigSize.allowServices }}
       - {{ . | printf "%s/*" | quote }}
       {{- end }}
 ---
