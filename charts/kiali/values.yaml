@@ -76,6 +76,7 @@ cr:
           username: "admin"
           password: "prom-operator"
           type: basic
+        ## A list of Grafana dashboards that Kiali can link to
         dashboards:
           - name: "Istio Service Dashboard"
             variables:
@@ -90,6 +91,7 @@ cr:
           - name: "Istio Performance Dashboard"
           - name: "Istio Wasm Extension Dashboard"
 
+      ## Configuration used to access the Jaeger dashboards.
       tracing:
         enabled: true
         in_cluster_url: "http://jaeger-query.jaeger.svc.cluster.local:16686"
