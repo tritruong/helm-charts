@@ -83,6 +83,9 @@ package:
     #   # http: {}
     #   # tcp: {}
     #   # tls: {}
+    reduceConfigSize:
+      enabled: false
+      allowServices: []
 
   monitor:
     # -- Toggle automatic setup of encrypted metrics via https.  Requires Istio injection.  Strict mTLS relies on this being enabled.
