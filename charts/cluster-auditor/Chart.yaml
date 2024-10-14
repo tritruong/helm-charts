@@ -1,0 +1,8 @@
+apiVersion: v2
+name: cluster-auditor
+description: A Helm chart for cluster-auditor
+version: 0.0.4
+
+maintainers:
+- email: tritruong.tr@gmail.com
+  name: tritruong

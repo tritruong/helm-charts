@@ -1,0 +1,51 @@
+annotations: {}
+
+image:
+  repo: mcelep/opa_scorecard_exporter
+  tag: v0.0.4
+  imagePullPolicy: Always
+
+imagePullSecrets: []
+
+tolerations: []
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+loglevel: debug
+
+securityContext:
+  readOnlyRootFilesystem: true
+  capabilities:
+    drop:
+      - ALL
+  allowPrivilegeEscalation: false
+  privileged: false
+
+affinity: {}
+  # podAntiAffinity:
+  #   requiredDuringSchedulingIgnoredDuringExecution:
+  #     - topologyKey: "kubernetes.io/hostname"
+  #       labelSelector:
+  #         matchLabels:
+  #           dont-schedule-with: cluster-auditor
+  # nodeAffinity:
+  #   requiredDuringSchedulingIgnoredDuringExecution:
+  #     nodeSelectorTerms:
+  #     - matchExpressions:
+  #       - key: node-type
+  #         operator: In
+  #         values:
+  #         - "cluster-auditor"
+
+nodeSelector: {}
+  # node-type: cluster-auditor
+
+servicemonitor:
+  enabled: true
+  encryptedMetrics: false

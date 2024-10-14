@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    {{- include "clusterauditor.labels" . | nindent 4 }}
+  name: opa-exporter
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: opa-exporter
+  strategy: {}
+  template:
+    metadata:
+      {{- if .Values.annotations }}
+      annotations:
+        {{- toYaml .Values.annotations | nindent 8 }}
+      {{- end }}
+      labels:
+        app: opa-exporter
+        {{- include "clusterauditor.labels" . | nindent 8 }}
+    spec:
+      nodeSelector:
+        beta.kubernetes.io/os: linux
+      {{- if .Values.nodeSelector }}
+        {{- toYaml .Values.nodeSelector | nindent 8 }}
+      {{- end }}
+      containers:
+      - image: {{ .Values.image.repo }}:{{ .Values.image.tag }}
+        name: opa-exporter
+        resources:
+{{ toYaml .Values.resources | indent 10 }}
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          privileged: false
+          readOnlyRootFilesystem: true
+          runAsGroup: 1001
+          runAsUser: 1001
+      serviceAccountName: opa-exporter
+      {{/* start TNT addition 
+      This is set to true because this Pod relies on info queried from the K8s API
+      Namely, it needs to get/list/watch Gatekeeper resources ('*' in API group "constraints.gatekeeper.sh")
+      Ref (1): clusterRole.yaml and clusterRoleBinding.yaml
+      Ref (2): https://github.com/runyontr/opa-scorecard/tree/master#design
+      */}}
+      automountServiceAccountToken: true
+      {{/* end TNT addition */}}
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- if .Values.affinity }}
+      affinity:
+        {{ toYaml .Values.affinity | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
