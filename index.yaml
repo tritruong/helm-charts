@@ -1,5 +1,21 @@
 apiVersion: v1
 entries:
+  gatekeeper:
+  - apiVersion: v2
+    created: "2024-10-14T08:16:52.863506223Z"
+    dependencies:
+    - name: gatekeeper
+      repository: https://open-policy-agent.github.io/gatekeeper/charts
+      version: 3.17.1
+    description: A Helm chart for gatekeeper
+    digest: 04ffd3ea0550c990339be60f6e5edf32e8b74196ec2407216046a9b1327856bd
+    maintainers:
+    - email: tritruong.tr@gmail.com
+      name: tritruong
+    name: gatekeeper
+    urls:
+    - https://github.com/tritruong/helm-charts/releases/download/gatekeeper-3.17.1/gatekeeper-3.17.1.tgz
+    version: 3.17.1
   jaeger:
   - apiVersion: v2
     appVersion: 1.53.0
@@ -232,4 +248,4 @@ entries:
     urls:
     - https://github.com/tritruong/helm-charts/releases/download/wrapper-0.4.6/wrapper-0.4.6.tgz
     version: 0.4.6
-generated: "2024-10-12T16:56:29.11661869Z"
+generated: "2024-10-14T08:16:52.863545777Z"
