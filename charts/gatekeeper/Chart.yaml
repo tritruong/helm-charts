@@ -1,0 +1,13 @@
+apiVersion: v2
+name: gatekeeper
+description: A Helm chart for gatekeeper
+version: 3.17.1
+
+maintainers:
+- email: tritruong.tr@gmail.com
+  name: tritruong
+
+dependencies:
+- name: gatekeeper
+  version: 3.17.1
+  repository: https://open-policy-agent.github.io/gatekeeper/charts
