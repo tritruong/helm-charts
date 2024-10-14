@@ -1,5 +1,17 @@
 apiVersion: v1
 entries:
+  cluster-auditor:
+  - apiVersion: v2
+    created: "2024-10-14T10:37:08.990694126Z"
+    description: A Helm chart for cluster-auditor
+    digest: bbf59094735cc9eee345fd749f493d937fc558a4f0ea87a6ec1e1cd1da821e9d
+    maintainers:
+    - email: tritruong.tr@gmail.com
+      name: tritruong
+    name: cluster-auditor
+    urls:
+    - https://github.com/tritruong/helm-charts/releases/download/cluster-auditor-0.0.4/cluster-auditor-0.0.4.tgz
+    version: 0.0.4
   gatekeeper:
   - apiVersion: v2
     created: "2024-10-14T08:16:52.863506223Z"
@@ -248,4 +260,4 @@ entries:
     urls:
     - https://github.com/tritruong/helm-charts/releases/download/wrapper-0.4.6/wrapper-0.4.6.tgz
     version: 0.4.6
-generated: "2024-10-14T08:16:52.863545777Z"
+generated: "2024-10-14T10:37:09.181465515Z"
