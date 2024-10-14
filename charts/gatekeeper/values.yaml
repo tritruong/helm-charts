@@ -354,7 +354,7 @@ violations:
       excludedResources: []
       # - namespace/pod
   selinuxPolicy:
-    enabled: true
+    enabled: false
     enforcementAction: deny
     kind: K8sPSPSELinuxV2
     name: selinux-policy
