@@ -55,7 +55,7 @@ violations:
       # - namespace/container
   allowedDockerRegistries:
     enabled: true
-    enforcementAction: deny
+    enforcementAction: dryrun
     kind: K8sAllowedRepos
     name: allowed-docker-registries
     match: {}
@@ -66,7 +66,7 @@ violations:
       # - namespace/container
   allowedFlexVolumes:
     enabled: true
-    enforcementAction: deny
+    enforcementAction: dryrun
     kind: K8sPSPFlexVolumes
     name: allowed-flex-volumes
     match: {}
@@ -77,7 +77,7 @@ violations:
       # - namespace/pod
   allowedHostFilesystem:
     enabled: true
-    enforcementAction: deny
+    enforcementAction: dryrun
     kind: K8sPSPHostFilesystem
     name: allowed-host-filesystem
     match: {}
@@ -89,7 +89,7 @@ violations:
       # - namespace/pod
   allowedIPs:
     enabled: true
-    enforcementAction: deny
+    enforcementAction: dryrun
     kind: K8sExternalIPs
     name: allowed-ips
     match: {}
@@ -100,7 +100,7 @@ violations:
       # - namespace/service
   allowedProcMount:
     enabled: true
-    enforcementAction: deny
+    enforcementAction: dryrun
     kind: K8sPSPProcMount
     name: allowed-proc-mount
     match: {}
@@ -147,7 +147,7 @@ violations:
       # - namespace/container
   bannedImageTags:
     enabled: true
-    enforcementAction: deny
+    enforcementAction: dryrun
     kind: K8sBannedImageTags
     name: banned-image-tags
     match: {}
@@ -177,7 +177,7 @@ violations:
       # - namespace/container
   hostNetworking:
     enabled: true
-    enforcementAction: deny
+    enforcementAction: dryrun
     kind: K8sPSPHostNetworkingPorts
     name: host-networking
     match: {}
@@ -190,7 +190,7 @@ violations:
       # - namespace/container   # Applies if hostPort violation
   httpsOnly:
     enabled: true
-    enforcementAction: deny
+    enforcementAction: dryrun
     kind: K8sHttpsOnly2
     name: https-only
     match: {}
@@ -235,7 +235,7 @@ violations:
       # - namespace/container
   noHostNamespace:
     enabled: true
-    enforcementAction: deny
+    enforcementAction: dryrun
     kind: K8sPSPHostNamespace2
     name: no-host-namespace
     match: {}
@@ -244,7 +244,7 @@ violations:
       # - namespace/pod
   noPrivilegedContainers:
     enabled: true
-    enforcementAction: deny
+    enforcementAction: dryrun
     kind: K8sPSPPrivilegedContainer2
     name: no-privileged-containers
     match: {}
@@ -271,7 +271,7 @@ violations:
       # - namespace/container
   noSysctls:
     enabled: true
-    enforcementAction: deny
+    enforcementAction: dryrun
     kind: K8sPSPForbiddenSysctls
     name: no-sysctls
     match: {}
@@ -341,7 +341,7 @@ violations:
       # - namespace/container
   restrictedTaint:
     enabled: true
-    enforcementAction: deny
+    enforcementAction: dryrun
     kind: RestrictedTaintToleration
     name: restricted-taint
     match: {}
@@ -355,7 +355,7 @@ violations:
       # - namespace/pod
   selinuxPolicy:
     enabled: false
-    enforcementAction: deny
+    enforcementAction: dryrun
     kind: K8sPSPSELinuxV2
     name: selinux-policy
     match: {}
@@ -370,7 +370,7 @@ violations:
       # - namespace/pod         # Applies if SELinux is violated at the pod level
   uniqueIngressHost:
     enabled: true
-    enforcementAction: deny
+    enforcementAction: dryrun
     kind: K8sUniqueIngressHost
     name: unique-ingress-hosts
     match: {}
@@ -379,7 +379,7 @@ violations:
       # - namespace/ingress
   volumeTypes:
     enabled: true
-    enforcementAction: deny
+    enforcementAction: dryrun
     kind: K8sPSPVolumeTypes
     name: volume-types
     match: {}
