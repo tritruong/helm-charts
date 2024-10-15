@@ -19,13 +19,7 @@ resources:
 
 loglevel: debug
 
-securityContext:
-  readOnlyRootFilesystem: true
-  capabilities:
-    drop:
-      - ALL
-  allowPrivilegeEscalation: false
-  privileged: false
+securityContext: {}
 
 affinity: {}
   # podAntiAffinity:

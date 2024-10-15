@@ -26,6 +26,10 @@ spec:
       {{- if .Values.nodeSelector }}
         {{- toYaml .Values.nodeSelector | nindent 8 }}
       {{- end }}
+      {{- with .Values.securityContext }}
+      securityContext:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
       - image: {{ .Values.image.repo }}:{{ .Values.image.tag }}
         name: opa-exporter
