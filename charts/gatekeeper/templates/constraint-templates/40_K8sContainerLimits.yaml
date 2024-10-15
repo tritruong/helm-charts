@@ -195,12 +195,12 @@ spec:
           msg := sprintf("container <%v> has no resource limits", [container.name])
         }
 
-        general_violation[{"msg": msg, "field": field}] {
-          container := input.review.object.spec[field][_]
-          included(container.name, input.parameters.excludedResources)
-          missing(container.resources.limits, "cpu")
-          msg := sprintf("container <%v> has no cpu limit", [container.name])
-        }
+        # general_violation[{"msg": msg, "field": field}] {
+        #   container := input.review.object.spec[field][_]
+        #   included(container.name, input.parameters.excludedResources)
+        #   missing(container.resources.limits, "cpu")
+        #   msg := sprintf("container <%v> has no cpu limit", [container.name])
+        # }
 
         general_violation[{"msg": msg, "field": field}] {
           container := input.review.object.spec[field][_]
