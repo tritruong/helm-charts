@@ -50,7 +50,7 @@ violations:
     parameters:
       allowedCapabilities: []
       requiredDropCapabilities:
-        - all
+        - ALL
       excludedResources: []
       # - namespace/container
   allowedDockerRegistries:
