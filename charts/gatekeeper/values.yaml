@@ -166,7 +166,7 @@ violations:
       excludedResources: []
       # - namespace/service
   containerRatio:
-    enabled: true
+    enabled: false
     enforcementAction: dryrun
     kind: K8sContainerRatios
     name: container-ratios
