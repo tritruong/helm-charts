@@ -12,6 +12,27 @@ entries:
     urls:
     - https://github.com/tritruong/helm-charts/releases/download/cluster-auditor-0.0.4/cluster-auditor-0.0.4.tgz
     version: 0.0.4
+  elasticsearch-kibana:
+  - apiVersion: v2
+    created: "2024-10-16T19:12:30.109587775Z"
+    dependencies:
+    - condition: eck-elasticsearch.enabled
+      name: eck-elasticsearch
+      repository: https://helm.elastic.co
+      version: 0.12.1
+    - condition: eck-kibana.enabled
+      name: eck-kibana
+      repository: https://helm.elastic.co
+      version: 0.12.1
+    description: A Helm chart for elasticsearch-kibana
+    digest: fb40cc3ea793eba5429ed26fa2772dde7252921c0a44228cabc0fd0473fb156a
+    maintainers:
+    - email: tritruong.tr@gmail.com
+      name: tritruong
+    name: elasticsearch-kibana
+    urls:
+    - https://github.com/tritruong/helm-charts/releases/download/elasticsearch-kibana-0.12.1/elasticsearch-kibana-0.12.1.tgz
+    version: 0.12.1
   gatekeeper:
   - apiVersion: v2
     created: "2024-10-14T08:16:52.863506223Z"
@@ -260,4 +281,4 @@ entries:
     urls:
     - https://github.com/tritruong/helm-charts/releases/download/wrapper-0.4.6/wrapper-0.4.6.tgz
     version: 0.4.6
-generated: "2024-10-14T10:37:09.181465515Z"
+generated: "2024-10-16T19:12:30.227610061Z"
