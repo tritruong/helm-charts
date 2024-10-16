@@ -27,6 +27,7 @@ jobs:
           helm repo add incubator https://charts.helm.sh/incubator
           helm repo add kiali https://kiali.org/helm-charts
           helm repo add gatekeeper https://open-policy-agent.github.io/gatekeeper/charts
+          helm repo add elastic https://helm.elastic.co
 
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.6.0
