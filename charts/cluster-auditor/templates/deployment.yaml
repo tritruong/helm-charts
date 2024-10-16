@@ -52,6 +52,30 @@ spec:
       Ref (2): https://github.com/runyontr/opa-scorecard/tree/master#design
       */}}
       automountServiceAccountToken: true
+      {{- with .Values.livenessProbe }}
+      {{- if .enabled }}
+      livenessProbe:
+        tcpSocket:
+          port: 9141
+        initialDelaySeconds: {{ .initialDelaySeconds }}
+        periodSeconds: {{ .periodSeconds }}
+        timeoutSeconds: {{ .timeoutSeconds }}
+        successThreshold: {{ .successThreshold }}
+        failureThreshold: {{ .failureThreshold }}
+      {{- end }}
+      {{- end }}
+      {{- with .Values.livenessProbe }}
+      {{- if .enabled }}
+      readinessProbe:
+        tcpSocket:
+          port: 9141
+        initialDelaySeconds: {{ .initialDelaySeconds }}
+        periodSeconds: {{ .periodSeconds }}
+        timeoutSeconds: {{ .timeoutSeconds }}
+        successThreshold: {{ .successThreshold }}
+        failureThreshold: {{ .failureThreshold }}
+      {{- end }}
+      {{- end }}
       {{/* end TNT addition */}}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
