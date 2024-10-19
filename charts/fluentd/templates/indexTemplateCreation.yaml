@@ -111,8 +111,8 @@ spec:
     metadata:
       name: logging-es-index-templates
       labels:
-        bigbang.dev/job: "logging-es-index-creation"
-        app.kubernetes.io/name: logging
+        job-name: "logging-es-index-creation"
+        app.kubernetes.io/name: fluentd
     spec:
       containers:
         - name: logging-es-index-templates
