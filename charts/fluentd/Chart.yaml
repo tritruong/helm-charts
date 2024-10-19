@@ -1,7 +1,7 @@
 apiVersion: v2
 name: fluentd
 description: A Helm chart for fluentd
-version: 0.5.4
+version: 0.5.5
 
 maintainers:
 - email: tritruong.tr@gmail.com
