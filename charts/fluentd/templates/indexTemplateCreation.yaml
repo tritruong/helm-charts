@@ -111,7 +111,6 @@ spec:
     metadata:
       name: logging-es-index-templates
       labels:
-        job-name: "logging-es-index-creation"
         app.kubernetes.io/name: fluentd
     spec:
       containers:
