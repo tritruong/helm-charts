@@ -35,6 +35,21 @@ entries:
     version: 0.12.1
   fluentd:
   - apiVersion: v2
+    created: "2024-10-19T17:54:21.496867323Z"
+    dependencies:
+    - name: fluentd
+      repository: https://fluent.github.io/helm-charts
+      version: 0.5.2
+    description: A Helm chart for fluentd
+    digest: edcb601090db2e99542ec26e895fccc56eb399348f9f4283c0f5ec7977dfb5b8
+    maintainers:
+    - email: tritruong.tr@gmail.com
+      name: tritruong
+    name: fluentd
+    urls:
+    - https://github.com/tritruong/helm-charts/releases/download/fluentd-0.5.3/fluentd-0.5.3.tgz
+    version: 0.5.3
+  - apiVersion: v2
     created: "2024-10-19T17:42:16.436243162Z"
     dependencies:
     - name: fluentd
@@ -297,4 +312,4 @@ entries:
     urls:
     - https://github.com/tritruong/helm-charts/releases/download/wrapper-0.4.6/wrapper-0.4.6.tgz
     version: 0.4.6
-generated: "2024-10-19T17:42:16.540314126Z"
+generated: "2024-10-19T17:54:21.496947152Z"
