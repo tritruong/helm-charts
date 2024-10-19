@@ -91,6 +91,7 @@ data:
             }
           ]
         }
+      }
     }
 ---
 apiVersion: batch/v1
