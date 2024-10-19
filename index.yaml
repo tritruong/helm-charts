@@ -33,6 +33,22 @@ entries:
     urls:
     - https://github.com/tritruong/helm-charts/releases/download/elasticsearch-kibana-0.12.1/elasticsearch-kibana-0.12.1.tgz
     version: 0.12.1
+  fluentd:
+  - apiVersion: v2
+    created: "2024-10-19T17:42:16.436243162Z"
+    dependencies:
+    - name: fluentd
+      repository: https://fluent.github.io/helm-charts
+      version: 0.5.2
+    description: A Helm chart for fluentd
+    digest: 9cad45dca36a3b22e5d3c59f87c46190022b9649237edf66238848e72ffc97fd
+    maintainers:
+    - email: tritruong.tr@gmail.com
+      name: tritruong
+    name: fluentd
+    urls:
+    - https://github.com/tritruong/helm-charts/releases/download/fluentd-0.5.2/fluentd-0.5.2.tgz
+    version: 0.5.2
   gatekeeper:
   - apiVersion: v2
     created: "2024-10-14T08:16:52.863506223Z"
@@ -281,4 +297,4 @@ entries:
     urls:
     - https://github.com/tritruong/helm-charts/releases/download/wrapper-0.4.6/wrapper-0.4.6.tgz
     version: 0.4.6
-generated: "2024-10-16T19:12:30.227610061Z"
+generated: "2024-10-19T17:42:16.540314126Z"
