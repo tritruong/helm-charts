@@ -10,7 +10,7 @@ data:
   logging-service.json: |
     {
       "priority": 10,
-      "index_patterns": ["kubernetes_cluster_log-*", "kubernetes_apiserver_audit-*"],
+      "index_patterns": ["kubernetes_cluster_log*", "kubernetes_apiserver_audit*"],
       "template": {
         "settings": {
           "number_of_shards": 5,
