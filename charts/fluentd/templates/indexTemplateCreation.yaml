@@ -1,0 +1,166 @@
+{{- if .Values.indexTemplateCreation.enabled }}
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: index-templates
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-weight": "-5"
+data:
+  logging-service.json: |
+    {
+      "index_patterns": ["kubernetes_cluster_log-*", "kubernetes_apiserver_audit-*"],
+      "settings": {
+        "number_of_shards": 5,
+        "index.mapping.ignore_malformed": true,
+        "index.refresh_interval": "30s",
+        "index.translog.sync_interval": "1m",
+        "index.number_of_replicas": 1,
+
+        "index.search.slowlog.threshold.query.warn": "5s",
+        "index.search.slowlog.threshold.query.info": "2s",
+        "index.search.slowlog.threshold.fetch.warn": "1s",
+        "index.search.slowlog.threshold.fetch.info": "500ms",
+
+        "index.search.slowlog.level": "info",
+
+        "index.indexing.slowlog.threshold.index.warn": "10s",
+        "index.indexing.slowlog.threshold.index.info": "5s",
+
+        "index.indexing.slowlog.level": "info",
+        "index.indexing.slowlog.source": 1000,
+
+        "analysis": {
+          "analyzer": {
+            "log_analyzer": {
+              "type": "pattern",
+              "pattern": "\\W+",
+              "lowercase": true
+            }
+          },
+          "normalizer": {
+            "lowercase_normalizer": {
+              "type": "custom",
+              "filter": ["lowercase"]
+            }
+          }
+        }
+      },
+
+      "mappings": {
+        "properties": {
+          "@timestamp": {
+            "type": "date"
+          },
+          "log_key.message": {
+            "type": "text",
+            "analyzer": "log_analyzer",
+            "norms": false,
+            "similarity": "boolean"
+          }
+        },
+
+        "dynamic_templates": [
+          {
+            "no_index_fields_past_depth_4": {
+              "path_match": "*.*.*.*",
+              "match_mapping_type": "object",
+              "mapping": {
+                "type": "object",
+                "enabled": false
+              }
+            }
+          },
+          {
+            "create_keyword_index_for_all_string_fields": {
+              "match": "*",
+              "match_mapping_type": "string",
+              "mapping": {
+                "type": "keyword",
+                "normalizer": "lowercase_normalizer",
+                "ignore_above": 1000
+              }
+            }
+          },
+          {
+            "disable_norms_and_scoring_for_all_fields": {
+              "match_mapping_type": "*",
+              "mapping": {
+                "norms": false,
+                "similarity": "boolean"
+              }
+            }
+          }
+        ]
+      }
+    }
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: logging-es-index-templates
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-weight": "5"
+spec:
+  # Higher backoff limit since our curl retry on elastic health can still fail in certain scenarios
+  backoffLimit: 5
+  ttlSecondsAfterFinished: 1800
+  template:
+    metadata:
+      name: logging-es-index-templates
+      labels:
+        bigbang.dev/job: "logging-es-index-creation"
+        app.kubernetes.io/name: logging
+    spec:
+      containers:
+        - name: logging-es-index-templates
+          image: {{ .Values.indexTemplateCreation.image.repository }}:{{ .Values.indexTemplateCreation.image.tag }}
+          securityContext: {{- .Values.indexTemplateCreation.containerSecurityContext | toYaml | nindent 12 }}
+          command:
+            - /bin/bash
+            - -ec
+            - |
+              echo "Checking if Elastic is up..."
+              curl --retry-delay 5 --retry-max-time 600 --retry 60 --retry-connrefused -skISu "${ES_USERNAME}:${ES_PASSWORD}" ${ES_HOST} &>/dev/null || export ES_DOWN="true"
+              if [[ ${ES_DOWN} == "true" ]]; then
+                echo "Cannot hit Elasticsearch endpoint, curl response:"
+                echo $(curl -sku "${ES_USERNAME}:${ES_PASSWORD}" ${ES_HOST})
+                exit 1
+              fi
+              echo "Elasticsearch is up."
+              # We can curl without checking the existing templates since the PUT request will overwrite if it already exists
+              cd /index-templates
+              echo "Creating logging service index template..."
+              curl -f -X PUT -H "Content-Type: application/json" -sSku "${ES_USERNAME}:${ES_PASSWORD}" -d @logging-service.json ${ES_HOST}/_index_template/logging-service &>/dev/null \
+                && export SVC_EC=$? || export SVC_EC=$?
+              if [[ ${SVC_EC} -ne 0 ]]; then
+                echo "Error: Failed to create service index template. ES Response:"
+                curl -X PUT -H "Content-Type: application/json" -sku "${ES_USERNAME}:${ES_PASSWORD}" -d @logging-service.json ${ES_HOST}/_index_template/logging-service; echo
+                exit $SVC_EC
+              fi
+              echo "ES index template creation complete."
+          resources:
+            requests:
+              cpu: 10m
+              memory: 32Mi
+            limits:
+              cpu: 10m
+              memory: 32Mi
+          envFrom:
+          - secretRef:
+              name: logging-secret
+          env:
+          - name: ES_HOST
+            value: {{ .Values.indexTemplateCreation.esUrl }}
+          volumeMounts:
+            - name: index-templates
+              mountPath: /index-templates
+              readOnly: true
+      volumes:
+        - name: index-templates
+          configMap:
+            name: index-templates
+      restartPolicy: OnFailure
+{{- end }}

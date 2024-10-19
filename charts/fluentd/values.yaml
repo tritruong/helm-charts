@@ -1,0 +1,10 @@
+indexTemplateCreation:
+  enabled: true
+
+  image:
+    repository: registry.access.redhat.com/ubi8
+    tag: 8.10
+
+  containerSecurityContext: {}
+
+  esUrl: https://logging-ek-es-http.logging.svc:9200
