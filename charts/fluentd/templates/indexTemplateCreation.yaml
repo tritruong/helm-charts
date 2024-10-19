@@ -9,86 +9,88 @@ metadata:
 data:
   logging-service.json: |
     {
+      "priority": 10,
       "index_patterns": ["kubernetes_cluster_log-*", "kubernetes_apiserver_audit-*"],
-      "settings": {
-        "number_of_shards": 5,
-        "index.mapping.ignore_malformed": true,
-        "index.refresh_interval": "30s",
-        "index.translog.sync_interval": "1m",
-        "index.number_of_replicas": 1,
+      "template": {
+        "settings": {
+          "number_of_shards": 5,
+          "index.mapping.ignore_malformed": true,
+          "index.refresh_interval": "30s",
+          "index.translog.sync_interval": "1m",
+          "index.number_of_replicas": 1,
 
-        "index.search.slowlog.threshold.query.warn": "5s",
-        "index.search.slowlog.threshold.query.info": "2s",
-        "index.search.slowlog.threshold.fetch.warn": "1s",
-        "index.search.slowlog.threshold.fetch.info": "500ms",
+          "index.search.slowlog.threshold.query.warn": "5s",
+          "index.search.slowlog.threshold.query.info": "2s",
+          "index.search.slowlog.threshold.fetch.warn": "1s",
+          "index.search.slowlog.threshold.fetch.info": "500ms",
 
-        "index.indexing.slowlog.threshold.index.warn": "10s",
-        "index.indexing.slowlog.threshold.index.info": "5s",
-        "index.indexing.slowlog.source": 1000,
+          "index.indexing.slowlog.threshold.index.warn": "10s",
+          "index.indexing.slowlog.threshold.index.info": "5s",
+          "index.indexing.slowlog.source": 1000,
 
-        "analysis": {
-          "analyzer": {
-            "log_analyzer": {
-              "type": "pattern",
-              "pattern": "\\W+",
-              "lowercase": true
+          "analysis": {
+            "analyzer": {
+              "log_analyzer": {
+                "type": "pattern",
+                "pattern": "\\W+",
+                "lowercase": true
+              }
+            },
+            "normalizer": {
+              "lowercase_normalizer": {
+                "type": "custom",
+                "filter": ["lowercase"]
+              }
             }
-          },
-          "normalizer": {
-            "lowercase_normalizer": {
-              "type": "custom",
-              "filter": ["lowercase"]
-            }
-          }
-        }
-      },
-
-      "mappings": {
-        "properties": {
-          "@timestamp": {
-            "type": "date"
-          },
-          "log_key.message": {
-            "type": "text",
-            "analyzer": "log_analyzer",
-            "norms": false,
-            "similarity": "boolean"
           }
         },
 
-        "dynamic_templates": [
-          {
-            "no_index_fields_past_depth_4": {
-              "path_match": "*.*.*.*",
-              "match_mapping_type": "object",
-              "mapping": {
-                "type": "object",
-                "enabled": false
-              }
+        "mappings": {
+          "properties": {
+            "@timestamp": {
+              "type": "date"
+            },
+            "log_key.message": {
+              "type": "text",
+              "analyzer": "log_analyzer",
+              "norms": false,
+              "similarity": "boolean"
             }
           },
-          {
-            "create_keyword_index_for_all_string_fields": {
-              "match": "*",
-              "match_mapping_type": "string",
-              "mapping": {
-                "type": "keyword",
-                "normalizer": "lowercase_normalizer",
-                "ignore_above": 1000
+
+          "dynamic_templates": [
+            {
+              "no_index_fields_past_depth_4": {
+                "path_match": "*.*.*.*",
+                "match_mapping_type": "object",
+                "mapping": {
+                  "type": "object",
+                  "enabled": false
+                }
+              }
+            },
+            {
+              "create_keyword_index_for_all_string_fields": {
+                "match": "*",
+                "match_mapping_type": "string",
+                "mapping": {
+                  "type": "keyword",
+                  "normalizer": "lowercase_normalizer",
+                  "ignore_above": 1000
+                }
+              }
+            },
+            {
+              "disable_norms_and_scoring_for_all_fields": {
+                "match_mapping_type": "*",
+                "mapping": {
+                  "norms": false,
+                  "similarity": "boolean"
+                }
               }
             }
-          },
-          {
-            "disable_norms_and_scoring_for_all_fields": {
-              "match_mapping_type": "*",
-              "mapping": {
-                "norms": false,
-                "similarity": "boolean"
-              }
-            }
-          }
-        ]
-      }
+          ]
+        }
     }
 ---
 apiVersion: batch/v1
