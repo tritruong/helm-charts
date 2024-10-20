@@ -8,7 +8,6 @@ metadata:
 data:
   logging-service.json: |
     {
-      "priority": 10,
       "index_patterns": ["kubernetes_cluster_log*"],
       "template": {
         "settings": {
