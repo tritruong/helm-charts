@@ -47,7 +47,7 @@ data:
 
         "mappings": {
           "properties": {
-            "@timestamp": {
+            "time": {
               "type": "date"
             }
           },
