@@ -49,12 +49,6 @@ data:
           "properties": {
             "@timestamp": {
               "type": "date"
-            },
-            "log_key.message": {
-              "type": "text",
-              "analyzer": "log_analyzer",
-              "norms": false,
-              "similarity": "boolean"
             }
           },
 
@@ -76,14 +70,7 @@ data:
                 "mapping": {
                   "type": "keyword",
                   "normalizer": "lowercase_normalizer",
-                  "ignore_above": 1000
-                }
-              }
-            },
-            {
-              "disable_norms_and_scoring_for_all_fields": {
-                "match_mapping_type": "*",
-                "mapping": {
+                  "ignore_above": 1000,
                   "norms": false,
                   "similarity": "boolean"
                 }
