@@ -49,6 +49,12 @@ data:
           "properties": {
             "time": {
               "type": "date"
+            },
+            "log": {
+              "type": "text",
+              "analyzer": "log_analyzer",
+              "norms": false,
+              "similarity": "boolean"
             }
           },
 
